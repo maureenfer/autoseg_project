@@ -1,0 +1,26 @@
+development:
+  database: autoseg_development
+  adapter:  postgresql
+  encoding: unicode
+  username: postgres
+  password: postgres
+  host: localhost
+  pool: 5
+
+test:
+  database: autoseg_test
+  adapter:  postgresql
+  encoding: unicode
+  username: postgres
+  password: postgres
+  host: localhost
+  pool: 5
+
+production:
+  database: autoseg_test
+  adapter:  postgresql
+  encoding: unicode
+  username: postgres
+  password: postgres
+  host: localhost
+  pool: 5
