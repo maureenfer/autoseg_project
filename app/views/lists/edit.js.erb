@@ -1,0 +1,8 @@
+$('.dialog').html('<%= j(render :partial => "lists/edit")%>')
+            .dialog({
+              maxHeight: 480,
+              modal: true,
+              resizable: false,
+              title: "Edit List",
+              width: 400
+            });

@@ -1,0 +1,8 @@
+$('.dialog').html('<%= j(render :partial => "lists/new")%>')
+            .dialog({
+              maxHeight: 480,
+              modal: true,
+              resizable: false,
+              title: "New List",
+              width: 400
+            });
