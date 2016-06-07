@@ -26,7 +26,9 @@
               <td><%= list.name %></td>
               <td><%= (list.status) ? 'Private' : 'Public' %></td>
               <td>
-                <span class="glyphicon glyphicon-star-empty"></span>
+                <%= link_to  "/add-favorite/#{list.id}", id: 'add-fav', remote: true do %> 
+                  <span class="glyphicon glyphicon-star-empty"></span>
+                <% end %>
               </td>
               <td><%= list.user.email %></td>
               <td>

@@ -13,7 +13,7 @@
       <ul class="nav navbar-nav">
         <li><a href="#" onclick="Turbolinks.visit('<%= lists_path %>')">List 
         <li><a href="#" onclick="Turbolinks.visit('<%= tasks_path %>')">Tasks</a></li>
-        <li><a href="#">Favorites</a></li>
+        <li><a href="#" onclick="Turbolinks.visit('<%= favorites_path %>')">Favorites</a></li>>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>

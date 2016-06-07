@@ -3,4 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources  :lists
   resources  :tasks
+  resources  :favorites
+
+  match 'add-favorite/:list_id', to: 'favorites#add_favorite_list', via: :get
 end

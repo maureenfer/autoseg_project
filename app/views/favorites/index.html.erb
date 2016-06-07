@@ -1,0 +1,29 @@
+
+<div class="panel panel-default">
+  <div class="panel-heading">My Favorite Lists</div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th colspan="1"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @favorities.each do |favorite| %>
+        <tr>
+          <td><%= favorite.list.name %></td>
+          <td><%= (favorite.list.status) ? 'Private' : 'Public' %></td>
+          <td>
+            <%= link_to list_path(favorite.list.id) do %>
+              <span class="glyphicon glyphicon-eye-open"></span>
+            <% end%>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  
+  </div>
+</div>
