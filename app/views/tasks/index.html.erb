@@ -1,0 +1,47 @@
+<div id="notice" class="alert alert-info hide"></div>
+<div class="row">
+  <div class="col-md-10">
+    <%= link_to 'New Task', new_task_path, class: 'btn btn-default', remote: :true %>
+  </div>
+</div>
+<br>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Tasks</div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>List</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @tasks.each do |task| %>
+        <% if task.list.user.id == current_user.id %>
+        <tr>
+          <td><%= task.name %></td>
+          <td><%= task.description %></td>
+          <td><%= task.list.name %></td>
+          <td>
+            <%= link_to task do %>
+              <span class="glyphicon glyphicon-eye-open"></span>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to edit_task_path(task), remote: :true do %>
+              <span class="glyphicon glyphicon-edit"></span>
+            <% end%>
+          </td>
+          <td><%= link_to  task, method: :delete, data: { confirm: 'Are you sure?' } do %>
+            <span class="glyphicon glyphicon-remove-circle"></span>
+            <% end%>
+          </td>
+        </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

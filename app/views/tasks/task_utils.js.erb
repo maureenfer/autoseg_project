@@ -1,0 +1,20 @@
+$(document).ready(function() {
+  $('#new_task')  
+    // Add button click handler
+    .on('click', '.addButton', function() {
+        var $template = $('#add-fields'),
+            $clone    = $template
+                            .clone()
+                            .removeClass('hide')
+                            .removeAttr('id')
+                            .insertAfter($(".last"))
+    })
+
+    // Remove button click handler
+    .on('click', '.removeButton', function() {
+        var $row    = $(this).parents('.append')
+
+        // Remove element containing the option
+        $row.remove();
+    })
+});

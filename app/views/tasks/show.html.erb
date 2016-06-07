@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Task</div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>List</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @task.name %></td>
+        <td><%= @task.description %></td>
+        <td><%= @task.list.name %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<%= link_to 'Edit', edit_task_path(@task), remote: :true if @task.list.user_id == current_user.id %> |
+<%= link_to 'Back', tasks_path %>
