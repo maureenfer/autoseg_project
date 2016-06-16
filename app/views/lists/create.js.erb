@@ -1,14 +1,14 @@
 $('.dialog').dialog( "close" );
 $('#notice').html("<%= flash[:notice] %>").removeClass('hide');
 
-var checkListUpdate = function() {
+$(document).ready(function() {
   var source = new EventSource('/list_stream');
   source.addEventListener('results', function(e){
     console.log('Received a message:', e.data);
-    $("#lists").append("<li>"+ $.parseJSON(e.data).name +"</li>");
+    //$("#lists").append("<li>"+ $.parseJSON(e.data).name +"</li>");
   });
   source.addEventListener('finished', function(e){
     console.log('Close:', e.data);
     source.close();
   });
-};
+});

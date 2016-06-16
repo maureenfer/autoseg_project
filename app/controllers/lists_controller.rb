@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  # include ActionController::Live
+  include ActionController::Live
 
   before_action :set_list, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
