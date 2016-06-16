@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   resources  :favorites
 
   match 'add-favorite/:list_id', to: 'favorites#add_favorite_list', via: :get
+  get 'list_stream' => 'lists#notification'
 end

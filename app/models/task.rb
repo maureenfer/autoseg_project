@@ -3,5 +3,4 @@ class Task < ActiveRecord::Base
 
   validates :name,        presence: true
   validates :description, presence: true
-  validates :list_id,     presence: true
 end

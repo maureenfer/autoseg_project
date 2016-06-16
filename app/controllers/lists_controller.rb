@@ -1,6 +1,26 @@
 class ListsController < ApplicationController
+  # include ActionController::Live
+
   before_action :set_list, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+
+  def notification
+    # SSE expects the `text/event-stream` content type
+    response.headers['Content-Type'] = 'text/event-stream'
+
+    sse = SSE.new(response.stream)
+
+    last_updated = List.last_updated.first
+    if recently_changed? last_updated
+      begin
+        sse.write(last_updated, event: 'results')
+      rescue IOError
+        # When the client disconnects, we'll get an IOError on write
+      ensure
+        sse.close
+      end
+    end
+  end
 
   # GET /lists
   # GET /lists.json
@@ -16,10 +36,12 @@ class ListsController < ApplicationController
   # GET /lists/new
   def new
     @list = List.new
+    @list.tasks.build
   end
 
   # GET /lists/1/edit
   def edit
+    @list.tasks.build
   end
 
   # POST /lists
@@ -58,6 +80,11 @@ class ListsController < ApplicationController
   end
 
   private
+    def recently_changed? last_list
+      last_list.created_at > 5.seconds.ago or
+        last_list.updated_at > 5.seconds.ago
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_list
       @list = List.find(params[:id])
@@ -65,6 +92,7 @@ class ListsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def list_params
-      params.require(:list).permit(:name, :status, :user_id)
+      params.require(:list).permit(:name, :status, :user_id, 
+        tasks_attributes:[:id, :name, :description, :_destroy])
     end
 end
