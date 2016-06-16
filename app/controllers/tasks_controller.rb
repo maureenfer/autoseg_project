@@ -24,20 +24,11 @@ class TasksController < ApplicationController
 
   # POST /tasks
   def create
-    status = true
-    params[:task][:list_id].length.times do |index, value|
-      @task = Task.new(list_id: params[:task][:list_id][index],
-        name: params[:task][:name][index], 
-        description: params[:task][:description][index])
-      if !@task.save
-        status = false
-        @task.errors[:base] << "Unable to save task."
-      end
-    end
+    @task = Task.new(task_params)
 
     respond_to do |format|
-      if status
-        format.js { flash[:notice] = 'Task was successfully created.' }
+      if @task.save
+        format.js { flash[:notice]='Task was successfully created.' }
       else
         format.js { render :new }
       end
@@ -47,9 +38,7 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   def update
     respond_to do |format|
-      if @task.update(list_id: params[:task][:list_id].first,
-        name: params[:task][:name].first, 
-        description: params[:task][:description].first)
+      if @task.update(task_params)
         format.js { flash[:notice]='Task was successfully updated.'}
       else
         format.js { render :edit }
@@ -74,6 +63,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(name: [], description: [], list_id: [] )
+      params.require(:task).permit(:name, :description, :list_id )
     end
 end

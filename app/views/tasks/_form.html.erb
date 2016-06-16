@@ -15,26 +15,22 @@
     <div class="form-group">
       <label class="col-xs-3 control-label">List</label>
       <div class="col-xs-5">
-        <%= select_tag "task[list_id][]", options_from_collection_for_select(List.where(user_id: current_user.id), "id", "name", @task.list_id), include_blank: true %>
+        <%= f.select :list_id, options_from_collection_for_select(List.where(user_id: current_user.id), "id", "name", @task.list_id), include_blank: true %>
       </div>
-      <% if action_name == 'new' %>
-        <div class="col-xs-4">
-            <button type="button" id="addButton" class="btn btn-default addButton"><i class="glyphicon glyphicon-plus"></i></button>
-        </div>
-      <% end %>
+
     </div>
 
     <div class="form-group">
       <label class="col-xs-3 control-label">Name</label>
       <div class="col-xs-5">
-        <%= text_field_tag 'task[name][]', @task.name , class: 'form-control'  %>
+        <%= f.text_field :name, class: 'form-control'  %>
       </div>
     </div>
 
     <div class="form-group last">
       <label class="col-xs-3 control-label">Description</label>
       <div class="col-xs-5">
-        <%= text_area_tag 'task[description][]', @task.description, class: 'form-control' %>
+        <%= f.text_area :description, class: 'form-control' %>
       </div>
     </div>
 
@@ -47,33 +43,6 @@
 </div>
 <% end %>
 
-<div class="append hide" id="add-fields">
-  <hr>
-  <div class="form-group">
-    <label class="col-xs-3 control-label">List</label>
-    <div class="col-xs-5">
-      <%= select_tag "task[list_id][]", options_from_collection_for_select(List.where(user_id: current_user.id), "id", "name"), include_blank: true %>
-    </div>
-      <div class="col-xs-4">
-        <button type="button" class="btn btn-default removeButton"><i class="glyphicon glyphicon-minus"></i></button>
-      </div>
-  </div>
-
-  <div class="form-group">
-    <label class="col-xs-3 control-label">Name</label>
-    <div class="col-xs-5">
-      <%= text_field_tag 'task[name][]', nil , class: 'form-control'  %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label class="col-xs-3 control-label">Description</label>
-    <div class="col-xs-5">
-      <%= text_area_tag 'task[description][]', nil, class: 'form-control' %>
-    </div>
-  </div>
-      
-</div>
 
 <script type="text/javascript">
   <%= render template: 'tasks/task_utils.js' %>

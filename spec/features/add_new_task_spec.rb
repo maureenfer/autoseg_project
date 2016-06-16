@@ -27,18 +27,9 @@ describe "the task's process", :type => :feature do
       expect(page).to have_content('New Task')
 
       within("#new_task") do
-        select('My List 1', from: 'task[list_id][]', visible: false)
-        fill_in 'task[name][]', with: 'My Task 1', match: :prefer_exact
-        fill_in 'task[description][]', with: 'My description 1', match: :prefer_exact
-      end
-
-      click_on 'addButton'
-
-      expect(page).to have_css('.append')
-      within(".append") do
-        select('My List 1', from: 'task[list_id][]', match: :first)
-        fill_in 'task[name][]', with: 'My Task 2', match: :prefer_exact
-        fill_in 'task[description][]', with: 'My description 2', match: :prefer_exact
+        select('My List 1', from: 'task[list_id]', visible: false)
+        fill_in 'task[name]', with: 'My Task 1', match: :prefer_exact
+        fill_in 'task[description]', with: 'My description 1', match: :prefer_exact
       end
 
       click_on 'Create'
