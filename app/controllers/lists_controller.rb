@@ -41,7 +41,6 @@ class ListsController < ApplicationController
 
   # GET /lists/1/edit
   def edit
-    @list.tasks.build
   end
 
   # POST /lists
