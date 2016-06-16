@@ -12,6 +12,7 @@
   <div class="container">
     <% if notice %><div class="alert alert-info"><%= notice %></div><% end %>
     <% if alert %><div class="alert alert-warning"><%= alert %></div><% end %>
+    <ul id="lists"></ul>
     
     <%= yield %>
 
@@ -19,4 +20,17 @@
   </div>
 
 </body>
+<script type="text/javascript">
+$(document).ready(function() {
+  var source = new EventSource('/list_stream');
+  source.addEventListener('results', function(e){
+    console.log('Received a message:', e.data);
+    $("#lists").append("<li>"+ $.parseJSON(e.data).name +"</li>");
+  });
+  source.addEventListener('finished', function(e){
+    console.log('Close:', e.data);
+    source.close();
+  });
+});
+</script>
 </html>

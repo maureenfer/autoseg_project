@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20160607010215) do
 
   create_table "tasks", force: :cascade do |t|
     t.string   "name"
+    t.string   "type"
     t.text     "description"
     t.integer  "list_id"
     t.datetime "created_at",  null: false

@@ -1,7 +1,7 @@
 <div id="notice" class="alert alert-info hide"></div>
 <div class="row">
   <div class="col-md-10">
-    <%= link_to 'New Task', new_task_path, class: 'btn btn-default', remote: :true %>
+    <%= link_to 'New', sti_task_path(@type, nil, :new), class: 'btn btn-default', remote: :true %>
   </div>
 </div>
 <br>
@@ -31,11 +31,11 @@
             <% end %>
           </td>
           <td>
-            <%= link_to edit_task_path(task), remote: :true do %>
+            <%= link_to sti_task_path(task.type, task, :edit), remote: :true do %>
               <span class="glyphicon glyphicon-edit"></span>
             <% end%>
           </td>
-          <td><%= link_to  task, method: :delete, data: { confirm: 'Are you sure?' } do %>
+          <td><%= link_to  sti_task_path(task.type, task), method: :delete, data: { confirm: 'Are you sure?' } do %>
             <span class="glyphicon glyphicon-remove-circle"></span>
             <% end%>
           </td>

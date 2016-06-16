@@ -1,11 +1,11 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_type
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    @tasks = type_class.all
   end
 
   # GET /tasks/1
@@ -15,7 +15,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    @task = Task.new
+    @task = type_class.new
   end
 
   # GET /tasks/1/edit
@@ -24,7 +24,7 @@ class TasksController < ApplicationController
 
   # POST /tasks
   def create
-    @task = Task.new(task_params)
+    @task = type_class.new(task_params)
 
     respond_to do |format|
       if @task.save
@@ -58,11 +58,23 @@ class TasksController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_task
-      @task = Task.find(params[:id])
+      @task = type_class.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:name, :description, :list_id )
+      params.require(type.underscore.to_sym).permit(:name, :description, :list_id, :type )
+    end
+
+    def set_type
+      @type = type
+    end
+ 
+    def type 
+      Task.types.include?(params[:type]) ? params[:type] : "Task"
+    end
+ 
+    def type_class 
+      type.constantize 
     end
 end
