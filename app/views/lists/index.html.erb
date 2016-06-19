@@ -60,12 +60,25 @@
                   <div class="col-md-6">Description</div>
                 </div>
               </li>
-              <% list.tasks.each do |task|%>
+              <% list.tasks.where(type: 'Task').each do |task|%>
                 <li class="list-group-item">
                   <div class="row">
                     <div class="col-md-6"><%= task.name %></div>
                     <div class="col-md-6"><%= task.description %></div>
                   </div>
+
+                  <ul class="list-group">
+                    <% list.tasks.where(type: 'Subtask').each do |subtask|%>
+                      <% if task.id == subtask.index_task %>
+                        <li class="list-group-item">
+                          <div class="row">
+                            <div class="col-md-6"><%= subtask.name %></div>
+                            <div class="col-md-6"><%= subtask.description %></div>
+                          </div>
+                        </li>
+                      <% end %>
+                    <% end %>
+                  </ul>
                 </li>
               <% end %>
             </ul>

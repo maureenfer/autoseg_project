@@ -1,8 +1,8 @@
 class ListsController < ApplicationController
-  include ActionController::Live
-
   before_action :authenticate_user!
   before_action :set_list, only: [:show, :edit, :update, :destroy]
+  
+  include ActionController::Live
 
   def notification
     # SSE expects the `text/event-stream` content type

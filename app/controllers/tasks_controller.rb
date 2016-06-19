@@ -25,6 +25,8 @@ class TasksController < ApplicationController
   # POST /tasks
   def create
     @task = type_class.new(task_params)
+    @father_task = Task.where(id: @task.index_task)
+    @task.list_id = @father_task.first.list_id
 
     respond_to do |format|
       if @task.save
@@ -63,7 +65,7 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(type.underscore.to_sym).permit(:name, :description, :list_id, :type )
+      params.require(type.underscore.to_sym).permit(:name, :description, :list_id, :type, :index_task)
     end
 
     def set_type

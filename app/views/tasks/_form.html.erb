@@ -13,9 +13,9 @@
 <div class="row">
   <div class="col-md-11">
     <div class="form-group">
-      <label class="col-xs-3 control-label">List</label>
+      <label class="col-xs-3 control-label">Task</label>
       <div class="col-xs-5">
-        <%= f.select :list_id, options_from_collection_for_select(List.where(user_id: current_user.id), "id", "name", @task.list_id), include_blank: true %>
+        <%= f.select :index_task, options_from_collection_for_select(Task.where(type: "Task"), "id", "name", @task.index_task), include_blank: true %>
       </div>
 
     </div>
