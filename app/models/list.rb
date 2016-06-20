@@ -6,7 +6,6 @@ class List < ActiveRecord::Base
 
   validates :name, presence: true
 
-
   scope :last_updated, -> {
     order('updated_at DESC, created_at DESC').limit(1)
   }

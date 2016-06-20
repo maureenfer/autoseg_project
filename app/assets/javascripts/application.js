@@ -16,3 +16,13 @@
 //= require jquery-ui
 //= require turbolinks
 //= require_tree .
+
+jQuery(document).ready(function() {
+  setTimeout(function() {
+    var source = new EventSource('/list_stream');
+    source.addEventListener('results', function(e) {
+      $("#lists").append("<li>List '"+ JSON.parse(e.data).name +"' was updated.</li>");
+      $(".alert-warning").removeClass('hide');
+    });
+  }, 1);
+});

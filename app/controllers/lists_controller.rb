@@ -1,5 +1,4 @@
 class ListsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_list, only: [:show, :edit, :update, :destroy]
   
   include ActionController::Live
@@ -13,13 +12,15 @@ class ListsController < ApplicationController
     last_updated = List.last_updated.first
     if recently_changed? last_updated
       begin
-        sse.write(last_updated, event: 'results')
+        sse.write(last_updated.to_json, event: 'results')
+        sleep 1
       rescue IOError
         # When the client disconnects, we'll get an IOError on write
       ensure
         sse.close
       end
     end
+    render nothing: true
   end
 
   # GET /lists
